@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.UserDao">
+    <sql id="userColumns">
+        u.id AS "id",
+        u.name AS "name",
+        u.age AS "age"
+    </sql>
+    <select id="getUserList" resultType="com.example.demo.entity.User">
+        SELECT
+        <include refid="userColumns"/>
+        From user u
+    </select>
+</mapper>
