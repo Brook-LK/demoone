@@ -20,10 +20,36 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserList();
     }
 
-//    @Transactional
-//    @Override
-//    public boolean addUser(User user) {
-//        if(user.getName() != mull && )
-//        return false;
-//    }
+    @Transactional
+    @Override
+    public boolean addUser(User user) {
+        if(user.getName() != null && !user.getName().equals("")){
+            try{
+                int effectedNum = userDao.insertUser(user);
+                if(effectedNum>0){
+                    return true;
+                }else{
+                    throw new RuntimeException("插入用户失败！");
+                }
+            }catch(Exception e){
+                throw new RuntimeException("插入用户失败：" + e.getMessage());
+            }
+        }else{
+            throw new RuntimeException("插入用户名不能为空");
+        }
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        try{
+            int effectedNum = userDao.deleteUser(user.getId());
+            if(effectedNum > 0){
+                return true;
+            }else{
+                throw new RuntimeException("删除用户失败！");
+            }
+        }catch(Exception e){
+            throw new RuntimeException("删除用户失败：" + e.getMessage());
+        }
+    }
 }
